@@ -20,7 +20,7 @@ async function show(req, res) {
 function newMovie(req, res) {
   // We'll want to be able to render an  
   // errorMsg if the create action fails
-    es.render('movies/new', { title: 'Add Movie', errorMsg: '' });
+    res.render('movies/new', { title: 'Add Movie', errorMsg: '' });
 }
 
 async function create(req, res) {
