@@ -5,9 +5,11 @@
 <label>Title:
     <input type="text" name="title">
 </label><br>
+
 <label>Release Year:
     <input type="number" name="releaseYear">
 </label><br>
+
 <label>MPAA Rating
     <select name="mpaaRating">
     <option value="G">G</option>
@@ -16,12 +18,15 @@
     <option value="R">R</option>
     </select>
 </label><br>
+
 <label>Cast (separate actors with commas):
     <input type="text" name="cast">
 </label><br>
+
 <label>Now Showing:
     <input type="checkbox" name="nowShowing" checked>
 </label><br>
+
 <button type="submit">Add Movie</button>
 </form>
 <p><%= errorMsg %></p>
