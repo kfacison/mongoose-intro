@@ -10,10 +10,20 @@
   <div>Now Showing: </div>
   <div><%= movie.nowShowing ? 'Yes' : 'Nope' %></div>
   <!-- start cast list -->
-
+  <div>Cast:</div>
+  <ul>
+    <%- movie.cast.map(p => `<li>${p.name} <small>${p.born.toLocaleDateString()}</small></li>`).join('') %>
+  </ul>
   <!-- end cast list -->
+  <!-- add to cast form below this comment -->
+  <form id="add-per-to-cast" action="/movies/<%= movie._id %>/performers" method="POST">
+    <select name="performerId">
+      <!-- Emit an option for each performer -->
+      <%- performers.map(p => `<option value="${p._id}">${p.name}</option>`).join('') %>
+    </select>
+    <button type="submit">Add to Cast</button>
+  </form>
 </section>
-<!-- add to cast form below this comment -->
 
 <br><br><h2>Reviews</h2>
 <form id="add-review-form" method="POST"

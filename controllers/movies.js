@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const Performer = require('../models/performer');
 
 module.exports = {
   index,
@@ -13,8 +14,10 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const movie = await Movie.findById(req.params.id);
-  res.render('movies/show', { title: 'Movie Detail', movie });
+  const movie = await Movie.findById(req.params.id).populate('cast');
+  const performers = await Performer.find({ _id: { $nin: movie.cast } }).sort('name');
+  //console.log(performers);
+  res.render('movies/show', { title: 'Movie Detail', movie, performers });
 }
 
 function newMovie(req, res) {
@@ -31,10 +34,10 @@ async function create(req, res) {
     if (req.body[key] === '') delete req.body[key];
   }
   try {
-    await Movie.create(req.body);
+    const movie = await Movie.create(req.body);
     // Always redirect after CUDing data
     // We'll refactor to redirect to the movies index after we implement it
-    res.redirect('/movies');  // Update this line
+    res.redirect(`/movies/${movie._id}`);  // Update this line
   } catch (err) {
     // Typically some sort of validation error
     console.log(err);
