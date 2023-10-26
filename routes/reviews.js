@@ -4,6 +4,6 @@ const reviewsCtrl = require('../controllers/reviews');
 
 // POST /movies/:id/reviews (create review for a movie)
 router.post('/movies/:id/reviews', reviewsCtrl.create);
-router.delete('/', reviewsCtrl.delete);
+router.delete('/reviews/:id', reviewsCtrl.delete);
 
 module.exports = router;

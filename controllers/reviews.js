@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const movies = require('./movies');
 
 module.exports = {
   create,
@@ -24,9 +25,10 @@ async function create(req, res) {
 }
 
 async function deleteReview(req, res){
-
-  // find the reviw in the array and then splice
-  //movie.reviews.splice(req.body,1);
+  const movie = await Movie.findOne({ 'reviews._id': req.params.id, 'reviews.user': req.user._id });
+  if (!movie) return res.redirect('/movies');
+  // Remove the review using the remove method available on Mongoose arrays
+  movie.reviews.remove(req.params.id);
   try {
     // Save any changes made to the movie doc
     await movie.save();
