@@ -6,6 +6,11 @@ module.exports = {
 
 async function create(req, res) {
   const movie = await Movie.findById(req.params.id);
+
+  req.body.user = req.user._id;
+  req.body.userName = req.user.name;
+  req.body.userAvatar = req.user.avatar;
+
   // We can push (or unshift) subdocs into Mongoose arrays
   movie.reviews.push(req.body);
   try {
@@ -14,6 +19,5 @@ async function create(req, res) {
   } catch (err) {
     console.log(err);
   }
-  // Step 5:  Respond to the Request (redirect if data has been changed)
   res.redirect(`/movies/${movie._id}`);
 }
